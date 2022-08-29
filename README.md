@@ -65,18 +65,3 @@ as POST method:
   notes: "Is my most important client"  //string, optional
 }
 ```
-
-### Update Pokemon
-
-as PATCH method:
-```javascript
-{{API_URL}}/pokemon/{id, name, no}
-
-//url to update
-{{API_URL}}/pokemon/630a7942816c4d85e01b5ad6
-//data
-{
-  "no": 1,                    //number, optional
-  "name": "new pokemon name"  //string, optional, force to lowercase
-}
-```
