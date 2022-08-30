@@ -17,9 +17,6 @@ export class Client {
     @Prop()
     public readonly company: string;
 
-    @Prop({
-        unique: true
-    })
     public readonly phone: string;
 
     @Prop()
