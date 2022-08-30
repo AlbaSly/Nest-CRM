@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateClientDto } from './dto/create-client.dto';
@@ -36,8 +36,12 @@ export class ClientsService {
     return clients;
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(id: string) {
+    const clientFound: Client = await this.clientModel.findById(id);
+
+    if (clientFound) throw new NotFoundException(`Client with id ${id} not found`);
+
+    return clientFound;
   }
 
   async update(id: number, updateClientDto: UpdateClientDto) {
