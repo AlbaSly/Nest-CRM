@@ -1,11 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose/dist";
+import { Document } from 'mongoose';
 
 @Schema()
-export class Client {
+export class Client extends Document {
 
-    @Prop({
-
-    })
+    @Prop()
     public readonly name: string;
 
     @Prop({
@@ -17,6 +16,7 @@ export class Client {
     @Prop()
     public readonly company: string;
 
+    @Prop()
     public readonly phone: string;
 
     @Prop()
