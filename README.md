@@ -50,6 +50,15 @@ as GET method:
 //This will return all clients
 ```
 
+### Get Single Client
+
+as GET method
+```javascript
+{{API_URL}}/clients/:id
+
+//id must be a valid mongo id
+```
+
 ### Create Client
 
 as POST method:
@@ -64,4 +73,31 @@ as POST method:
   phone: "123456",                      //string, optional
   notes: "Is my most important client"  //string, optional
 }
+```
+
+### Update Client
+
+as PATCH method
+```javascript
+{{API_URL}}/clients/:id
+
+//id must be a valid mongo id
+
+//new data
+{
+  //ALL VALUES CAN BE optional
+  name: "Bob update",                          //string, required
+  email: "bob@email.com",               //string, required
+  company: "Microsoft",                 //string, required
+  phone: "123456",                      //string, optional
+  notes: "Hello World"  //string, optional
+}
+```
+
+### Delete Client
+
+as DELETE method
+```javascript
+{{API_URL}}/clients/:id
+//id must be a valid mongo id
 ```
