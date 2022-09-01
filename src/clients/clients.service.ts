@@ -14,7 +14,6 @@ export class ClientsService {
   ) {}
 
   async create(createClientDto: CreateClientDto) {
-    
     try {
       const clientCreated = await this.clientModel.create({
         ...createClientDto,
@@ -37,27 +36,48 @@ export class ClientsService {
   }
 
   async findOne(id: string) {
-    const clientFound: Client = await this.clientModel.findById(id);
-
-    if (clientFound) throw new NotFoundException(`Client with id ${id} not found`);
+    const clientFound: Client = await this.clientModel.findById(id).select('-__v');
+    
+    if (!clientFound) throw new NotFoundException(`Client with id ${id} not found`);
 
     return clientFound;
   }
 
-  async update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, updateClientDto: UpdateClientDto) {
+    const clientFound: Client = await this.findOne(id);
+
+    try {
+      await clientFound.updateOne(updateClientDto);
+
+      return {
+        ...clientFound.toJSON(),
+        ...updateClientDto
+      }
+    } catch (error: any) {
+      this.handleExceptions(error);
+    }
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string) {
+    const clientFound: Client = await this.findOne(id);
+
+    try {
+      await clientFound.delete();
+
+      return {
+        msg: 'Client deleted successfully'
+      }
+    } catch (error: any) {
+      this.handleExceptions(error);
+    }
   }
 
   private handleExceptions(error: any): void {
     if (error.code == 11000) {
-      throw new BadRequestException(`Client exists in db ${ JSON.stringify( error.keyValue ) }`);
+      throw new BadRequestException(`A client exists in db with the next field(s): ${ JSON.stringify( error.keyValue ) }`);
     }
 
     console.log(error);
-    throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`);
+    throw new InternalServerErrorException(`Can't create Client - Check server logs`);
   }
 }
