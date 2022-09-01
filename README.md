@@ -86,11 +86,11 @@ as PATCH method
 //new data
 {
   //ALL VALUES CAN BE optional
-  name: "Bob update",                          //string, required
-  email: "bob@email.com",               //string, required
-  company: "Microsoft",                 //string, required
+  name: "Bob update",                   //string, optional
+  email: "bob@email.com",               //string, optional
+  company: "Microsoft",                 //string, optional
   phone: "123456",                      //string, optional
-  notes: "Hello World"  //string, optional
+  notes: "Hello World"                  //string, optional
 }
 ```
 
